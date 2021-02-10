@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Ignore VSCode metadata
+.vscode
+
+#Ignore the dataset folder
+/data
