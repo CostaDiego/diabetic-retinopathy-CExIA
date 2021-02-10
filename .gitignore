@@ -133,3 +133,9 @@ dmypy.json
 
 #Ignore the dataset folder
 /data
+
+#Ignore the jupyter prototyping notebook
+prototyping.ipynb
+
+#Ignore the Task Files folder
+/taskFile
