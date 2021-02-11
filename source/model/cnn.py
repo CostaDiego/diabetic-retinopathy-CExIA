@@ -18,7 +18,8 @@ def cnn_model(
     summary = False
     ):
     """
-    Define and run the Convolutional Neural Network
+    Define the Convolutional Neural Network.
+
     Parameters:
         input_shape: (img_row: int, img_col: int, channel: int) - Input shape of the images
         kernel_size: (filt_row: int, filt_col: int) - Initial size of kernel
@@ -26,7 +27,8 @@ def cnn_model(
         nb_classes: int - Number of classes for classification
         nb_gpus: int - To use multi-gpus models, set the number os GPUS
         summary: bool - To print or not the model summary
-    Returns
+
+    Returns:
         CNN model
     """
 
@@ -91,11 +93,21 @@ def callbacks(
     earlyStop_patience = EARLY_STOP_PATIENCE,
     tensorBoard_logDir = LOG_DIR_FOLDER
     ):
+    """
+    Define the callbacks to be used on the train.
+
+    Parameters:
+        earlyStop_patience: int - Number of epoch to wait before finish training process.
+        tensorBoard_logDir: str - String path to the TensorBoard log directory
+
+    Returns:
+        callbacks: dict - Dictionary containing the callbacks
+    """
 
     stop = EarlyStopping(
         monitor = 'val_acc',
         min_delta = 0.001,
-        patience = patience,
+        patience = earlyStop_patience,
         verbose = 0,
         mode = 'auto'
     )
@@ -111,13 +123,3 @@ def callbacks(
         'EarlyStopping': stop,
         'TensorBoard': tensor_board
     }
-
-
-# if __name__ == '__main__':
-#     model = cnn_model()
-#
-#     model.fit(X_train, y_train, batch_size=batch_size, epochs=nb_epoch,
-#               verbose=1,
-#               validation_split=0.2,
-#               class_weight='auto',
-#               callbacks=[stop, tensor_board])

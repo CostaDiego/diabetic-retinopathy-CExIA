@@ -36,4 +36,4 @@ def save_array(fileName, np_object):
         fileName: str - The file name with the .npy extension.
         np_object: numpy.ndarray - Numpy array to be saved.
     """
-    np.save(fileName, np_object)np_object
+    np.save(fileName, np_object)
