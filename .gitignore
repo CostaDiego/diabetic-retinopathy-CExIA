@@ -139,3 +139,6 @@ prototyping.ipynb
 
 #Ignore the Task Files folder
 /taskFile
+
+#Ignore the TensorBoard folder
+*Graph/
