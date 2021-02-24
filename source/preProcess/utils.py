@@ -2,7 +2,7 @@ from os import path, makedirs
 from PIL import Image
 import numpy as np
 
-def make_dir(path:str):
+def make_dir(directory:str):
     """
     Check if the directory exists, if don't, create the directory
 
