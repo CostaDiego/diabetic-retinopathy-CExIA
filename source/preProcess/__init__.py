@@ -8,6 +8,7 @@ root = path.abspath('../..')
 if root not in sys.path:
     sys.path.append(root)
 
+from source.preProcess import utils
 from source.preProcess.utils import (
     make_dir,
     image_to_array,
