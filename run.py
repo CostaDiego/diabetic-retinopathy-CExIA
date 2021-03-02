@@ -4,6 +4,24 @@ from os import path
 
 TASK_FOLDER = 'taskFile'
 
+class CheckDataset(luigi.Task):
+
+    def requires(self):
+        return None
+    
+    def output(self):
+
+        return luigi.LocalTarget(
+            path.join(
+                TASK_FOLDER,
+                '{file}.npy'.format(file=self.__class__.__name__)
+            )
+        )
+
+    def run(self):
+        pass
+
+
 class PreProcess(luigi.Task):
     data_folder = luigi.Parameter()
 
