@@ -1,4 +1,4 @@
-__all__ = ['preProcess', 'model']
+__all__ = ['preProcess', 'model','train']
 
 from os import path
 import sys
@@ -11,3 +11,5 @@ if root not in sys.path:
 from source import model
 from source import preProcess
 from source import utils
+
+from source.train import train
