@@ -1,4 +1,5 @@
 from keras.preprocessing.image import ImageDataGenerator
+from source.image.transforms import crop_image, resize_image, apply_CLAHE
 
 class CustomImageDataGenerator(ImageDataGenerator):
     """Generate batches of tensor image data with real-time data augmentation.
@@ -99,7 +100,11 @@ class CustomImageDataGenerator(ImageDataGenerator):
                  rescale=None,
                  data_format='channels_last',
                  validation_split=0.0,
-                 dtype='float32'):
+                 crop: tuple = None,
+                 resize: tuple = None,
+                 apply_clahe: bool = False,
+                 clahe_clip_limit: float = None,
+                 clahe_grid_size: tuple = None):
 
         super().__init__(
             featurewise_center=featurewise_center,
@@ -122,4 +127,36 @@ class CustomImageDataGenerator(ImageDataGenerator):
             rescale=rescale,
             data_format=data_format,
             validation_split=validation_split,
-            dtype=dtype)
+            preprocessing_function=self.preProcessFunction)
+
+        self.crop = crop
+        self.resize = resize
+        self.apply_clahe = apply_clahe
+        self.clahe_clip_limit = clahe_clip_limit
+        self.clahe_grid_size = clahe_grid_size
+
+    def preProcessFunction(self,image):
+        if self.crop:
+            image = crop_image(image, self.crop[0], self.crop[1])
+
+        if self.resize:
+            image = resize_image(
+                image, self.resize[0], self.resize[1]
+            )
+            
+        if self.apply_clahe:
+            if self.clahe_clip_limit and self.clahe_grid_size:
+                image = apply_CLAHE(image,
+                                    clipLimit=self.clahe_clip_limit,
+                                    tileGridSize=self.clahe_grid_size)
+
+            elif self.clahe_clip_limit:
+                image = apply_CLAHE(image, clipLimit=self.clahe_clip_limit)
+
+            elif self.clahe_grid_size:
+                image = apply_CLAHE(image, tileGridSize = self.clahe_grid_size)
+
+            else:
+                image = apply_CLAHE(image)
+
+        return image
