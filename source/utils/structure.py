@@ -1,4 +1,4 @@
-from os import path, register_at_fork
+from os import path, makedirs
 
 def exists(*args, verbose = False):
     """Check if the list of arguments exists. Works with both files and folders.
@@ -26,3 +26,14 @@ def exists(*args, verbose = False):
                 return False
 
     return True
+
+def make_dir(directory:str):
+    """
+    Check if the directory exists, if don't, create the directory
+
+    Parameters:
+        path: str - Path to the folder
+    """
+
+    if not path.exists(directory):
+        makedirs(directory)

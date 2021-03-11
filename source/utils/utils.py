@@ -1,17 +1,5 @@
-from os import path, makedirs
 from PIL import Image
 import numpy as np
-
-def make_dir(directory:str):
-    """
-    Check if the directory exists, if don't, create the directory
-
-    Parameters:
-        path: str - Path to the folder
-    """
-
-    if not path.exists(directory):
-        makedirs(directory)
 
 def image_to_array(img_path:str):
     """
