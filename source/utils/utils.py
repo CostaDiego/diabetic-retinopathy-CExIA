@@ -1,5 +1,7 @@
 from PIL import Image
 import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
 def image_to_array(img_path:str):
     """
@@ -25,3 +27,6 @@ def save_array(fileName, np_object):
         np_object: numpy.ndarray - Numpy array to be saved.
     """
     np.save(fileName, np_object)
+
+def split_data(dataFrameY):
+    pass
