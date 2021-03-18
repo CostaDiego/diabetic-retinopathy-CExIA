@@ -11,6 +11,7 @@ def cnn_model(
     kernel_size:tuple = (8,8),
     nb_filters: int = 32,
     nb_classes: int = 5,
+    optimizer = None,
     nb_gpus = None,
     summary = False
     ):
@@ -74,12 +75,20 @@ def cnn_model(
 
     if nb_gpus:
         model = multi_gpu_model(model, gpus=nb_gpus)
+    
+    if optimizer:
+        model.compile(
+            loss='binary_crossentropy',
+            optimizer=optimizer,
+            metrics=['accuracy']
+            )
 
-    model.compile(
-        loss='binary_crossentropy',
-        optimizer='adam',
-        metrics=['accuracy']
-        )
+    else:
+        model.compile(
+            loss='binary_crossentropy',
+            optimizer='adam',
+            metrics=['accuracy']
+            )
 
     if summary:
         model.summary()

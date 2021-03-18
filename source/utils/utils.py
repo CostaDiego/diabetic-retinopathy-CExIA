@@ -71,3 +71,8 @@ def split_data(dataFrameY, validation_size: float, test_size:float = None, reset
             valY = valY.reset_index(drop=True)
 
         return trainY, valY
+
+def append_ext(dataframe, column, extension = '.jpeg'):
+    dataframe[column]=dataframe[column].apply(lambda x: (x+extension))
+
+    return dataframe
