@@ -1,5 +1,5 @@
 from keras.preprocessing.image import ImageDataGenerator
-from source.image.transforms import crop_image, resize_image, apply_CLAHE
+from source.image.transforms import crop_image, resize_image, apply_CLAHE, crop_image_square
 
 class CustomImageDataGenerator(ImageDataGenerator):
     """Generate batches of tensor image data with real-time data augmentation.
@@ -101,6 +101,7 @@ class CustomImageDataGenerator(ImageDataGenerator):
                  data_format='channels_last',
                  validation_split=0.0,
                  crop: tuple = None,
+                 crop_square = None,
                  resize: tuple = None,
                  apply_clahe: bool = False,
                  clahe_clip_limit: float = None,
@@ -130,6 +131,7 @@ class CustomImageDataGenerator(ImageDataGenerator):
             preprocessing_function=self.preProcessFunction)
 
         self.crop = crop
+        self.crop_square = crop_square
         self.resize = resize
         self.apply_clahe = apply_clahe
         self.clahe_clip_limit = clahe_clip_limit
@@ -138,6 +140,13 @@ class CustomImageDataGenerator(ImageDataGenerator):
     def preProcessFunction(self,image):
         if self.crop:
             image = crop_image(image, self.crop[0], self.crop[1])
+
+        if self.crop_square:
+            if isinstance(self.crop_square,bool):
+                image = crop_image_square(image)
+
+            elif isinstance(self.crop_square,int):
+                image = crop_image_square(image, self.crop_square)
 
         if self.resize:
             image = resize_image(

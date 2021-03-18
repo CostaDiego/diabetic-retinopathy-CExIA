@@ -11,7 +11,7 @@ def crop_image(image: np.ndarray, width: int = None, height: int = None, ratio: 
         lower_heigh = (im_height//2) - (height//2)
         upper_heigh = (im_height//2) + (height//2)
         lower_width = (im_width//2) - (width//2)
-        upper_width = (im_width//2 + width//2)
+        upper_width = (im_width//2) + (width//2)
 
         if lower_heigh < 0:
             lower_heigh = 0
@@ -35,6 +35,53 @@ def crop_image(image: np.ndarray, width: int = None, height: int = None, ratio: 
         lower_width:upper_width]
 
     return croped
+
+def crop_image_square(image, size = None):
+    im_height, im_width, _ = image.shape
+
+    if size:
+        lower_heigh = (im_height//2) - (size//2)
+        upper_heigh = (im_height//2) + (size//2)
+        lower_width = (im_width//2) - (size//2)
+        upper_width = (im_width//2) + (size//2)
+
+        if lower_heigh < 0:
+            lower_heigh = 0
+
+        if upper_heigh > im_height:
+            upper_heigh = im_height
+
+        if lower_width < 0:
+            lower_width = 0
+        
+        if upper_width > im_width:
+            upper_width = im_width
+
+    else:
+        smallerSide = im_height if (im_height <= im_width) else im_width
+
+        lower_heigh = (im_height//2) - (smallerSide//2)
+        upper_heigh = (im_height//2) + (smallerSide//2)
+        lower_width = (im_width//2) - (smallerSide//2)
+        upper_width = (im_width//2) + (smallerSide//2)
+
+        if lower_heigh < 0:
+            lower_heigh = 0
+
+        if upper_heigh > im_height:
+            upper_heigh = im_height
+
+        if lower_width < 0:
+            lower_width = 0
+        
+        if upper_width > im_width:
+            upper_width = im_width
+
+    croped = image[ lower_heigh:upper_heigh,
+                    lower_width:upper_width]
+
+    return croped
+
 
 def resize_image(image: np.ndarray, width: int, height: int) -> np.ndarray:
     resized = cv.resize(image, (width, height))

@@ -3,6 +3,8 @@ from keras.layers import MaxPooling2D
 from keras.layers.convolutional import Conv2D
 from keras.models import Sequential
 from keras.utils import multi_gpu_model
+from keras.optimizers import SGD, Adagrad
+
 
 def cnn_model(
     input_shape: tuple = (256,256,3),
@@ -83,3 +85,9 @@ def cnn_model(
         model.summary()
 
     return model
+
+def SGD_optimizer(learning_rate, momentum, decay = 1e-6, nesterov = True):
+    # lr = 0.0001,momentum=0.9, decay= 1e-6 ,nesterov=True
+    sgd = SGD(lr = learning_rate ,momentum=momentum, decay= decay ,nesterov = nesterov)
+    
+    return sgd

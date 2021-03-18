@@ -10,5 +10,5 @@ from sklearn.metrics import precision_score, recall_score, f1_score, cohen_kappa
 from sklearn.utils import class_weight
 
 
-def train():
+def train(model):#, trainDataset, validationDataset, testDataset, callbacks, saveFolders):
     pass

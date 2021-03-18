@@ -1,5 +1,6 @@
 from keras.callbacks import EarlyStopping
 from keras.callbacks import TensorBoard
+from keras.callbacks import ModelCheckpoint
 
 def earlyStopping(
     monitor='val_loss',
@@ -127,14 +128,38 @@ def tensorBoard(
 
     return tensor_board
 
-def callbacks(early_stopping = True, tensor_board = True):
+def model_checkpoint(folder_path, ext = '.h5', monitor = 'val_loss'):
+    """
+    Return the Model Checkpoint callback
+
+    Parameters:
+        folder_path: Folder to save the checkpoint.
+
+        ext: Extension to sabe the model. Default '.h5'. Optional.
+
+        monitor: quantity to monitor. Default 'val_loss'. Optional.
+
+    Returns:
+        model_checkpoint: Model checkpoint callback
+    """
+    model_checkpoint = ModelCheckpoint(
+        filepath="{folder_path}/best_model-epoch_{epoch:02d}-ValLoss_{val_loss:.2f}{ext}",
+        monitor='val_loss')
+
+    return model_checkpoint
+
+
+def callbacks(model_checkpoint_folder, early_stopping = True, tensor_board = True):
     """
     Return all the modifieds callbacks
 
     Parameters:
+        model_checkpoint_folder: Folder to save the checkpoint.
+        
         early_stopping: If includes the EarlyStopping callback. Optional.
 
         tensor_board: If includes the Tensorboard callback. Optional.
+
 
     Returns:
         callbacks: List of callbacks
@@ -147,5 +172,8 @@ def callbacks(early_stopping = True, tensor_board = True):
 
     if tensor_board:
         callbacks.append(tensorBoard())
+
+    if model_checkpoint:
+        callbacks.append(model_checkpoint(model_checkpoint_folder))
 
     return callbacks

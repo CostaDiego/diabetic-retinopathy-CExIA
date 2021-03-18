@@ -11,5 +11,9 @@ if root not in sys.path:
 from source.image.customImageDataGenerator import CustomImageDataGenerator
 from source.image import customImageDataGenerator
 
-from source.image.transforms import crop_image, resize_image, apply_CLAHE
+from source.image.transforms import (
+    crop_image,
+    crop_image_square,
+    resize_image,
+    apply_CLAHE)
 from source.image import transforms
