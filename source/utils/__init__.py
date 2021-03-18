@@ -12,4 +12,7 @@ from source.utils import structure
 from source.utils.structure import exists, make_dir
 
 from source.utils import utils
-from source.utils.utils import image_to_array, save_array
+from source.utils.utils import (
+    image_to_array,
+    save_array,
+    split_data)
