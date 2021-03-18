@@ -127,3 +127,18 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Ignore VSCode metadata
+.vscode
+
+#Ignore the dataset folder
+/data
+
+#Ignore the jupyter prototyping notebook
+prototyping.ipynb
+
+#Ignore the Task Files folder
+/taskFile
+
+#Ignore the TensorBoard folder
+*tensorBoard_logs/
